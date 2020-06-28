@@ -1,43 +1,41 @@
 const reducer = (oldstate, action) => {
-    console.log("oldstate",oldstate)
-    console.log("action",action)
+    // console.log("oldstate",oldstate)
+    // console.log("action",action)
 
     switch (action.type){
 
 //Adding successful record to the state
         case "ADD_RECORD":
-            // debugger
             let newRecords = [action.record,...oldstate.records]
-            // let newRecords = oldstate.records.push(action.record)
-            // debugger
-            // let newRecords = oldstate.records.unshift(action.record)
-            // let newRecords = oldstate.records.concat(action.record)
             return {...oldstate,records: newRecords}
+
+//Set the active record            
         case "ACTIVE_REC":
+            let oldRec = JSON.parse(JSON.stringify(oldstate.records[parseInt(action.recordId)]))
+
+            return {...oldstate,recordId:action.recordId,oldRecord:oldRec,edit:!oldstate.edit,activeRecord:oldstate.records[parseInt(action.recordId)]}
+            // return {...oldstate,recordId:action.recordId,oldRecord:oldRec,edit:!oldstate.edit,activeRecord:oldRec}
+
+//Reset the active record to its initial value
+        case "RESET_ACTIVE_REC":
+            return {...oldstate,recordId:'',edit:!oldstate.edit,errors:{"email":'',"password":'',"zipcode":'',"firstname":''},activeRecord:'',oldRecord:{}}
+
+//Holds the intermediate changes made to the record
+        case "CANCEL_RECORD":
+            debugger
+            let rec = oldstate.oldRecord
+            let recs = oldstate.records.map((rec,id) => {
+                if(id === parseInt(action.idx)){
+                    // debugger
+                    rec = oldstate.oldRecord
+                }
+                return rec
+            })
             // debugger
-            return {...oldstate,recordId:action.recordId}
-        case "ALTER_RECORD":
-            // debugger
-            // let editRecord = oldstate.records[parseInt(action.idx)]
-            // editRecord[action.fieldname] = action.value 
-            // // oldstate.records.splice(parseInt(action.idx),1,editRecord)
+            return {...oldstate,records:recs,activeRecord:rec,oldRecord:{}}
 
-            // // oldstate.records.splice(parseInt(action.idx),0)
-            // // oldstate.records.splice(parseInt(action.idx),1,editRecord)
-
-            // oldstate.records[parseInt(action.idx)] = editRecord;
-            // let newRec = [oldstate.records];
-            // debugger
-            // return {...oldstate,records:newRec};
-
-                
-            // let newRec = [oldstate.records];
-            // let editRecord = newRec[parseInt(action.idx)]
-            // editRecord[action.fieldname] = action.value 
-
-            // newRec[parseInt(action.idx)] = editRecord;
-            // return {...oldstate,records:newRec};
-
+//Update a record
+        case "UPDATE_RECORD":
             let newRecs = oldstate.records.map((rec,id) => {
                 if(id === parseInt(action.idx)){
                     // debugger
@@ -45,13 +43,11 @@ const reducer = (oldstate, action) => {
                 }
                 return rec
             })
-            // debugger
             return {...oldstate,records:newRecs}
 
 //Default Action
         default:
             return oldstate;
-
     }
 }
 export default reducer;
