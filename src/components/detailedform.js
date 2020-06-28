@@ -1,10 +1,10 @@
 import React,{useState} from 'react';
 import '../Styling.css'
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 
 
-
-const DetailedForm = (props) => {
+const   DetailedForm = (props) => {
     let record = props.records[parseInt(props.recordId)];
     const [edit, setEdit] = useState(true);
 
@@ -73,7 +73,7 @@ const DetailedForm = (props) => {
                 </label><br/> <br/>  */}
                 {/* <input className="ButtonClass" type="Submit" value="Submit" /> */}
                 <button onClick={()=>setEdit(!edit)}>Edit</button>
-                <button >Previous</button>
+                <Link to="/"><button>Previous</button></Link>
             </form>
             
             {edit ? 'edit-true' : 'edit-false'}

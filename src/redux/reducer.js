@@ -17,12 +17,31 @@ const reducer = (oldstate, action) => {
             // debugger
             return {...oldstate,recordId:action.recordId}
         case "ALTER_RECORD":
-            debugger
+            // debugger
+            // let editRecord = oldstate.records[parseInt(action.idx)]
+            // editRecord[action.fieldname] = action.value 
+            // // oldstate.records.splice(parseInt(action.idx),1,editRecord)
+
+            // // oldstate.records.splice(parseInt(action.idx),0)
+            // // oldstate.records.splice(parseInt(action.idx),1,editRecord)
+
+            // oldstate.records[parseInt(action.idx)] = editRecord;
+            // let newRec = [oldstate.records];
+            // debugger
+            // return {...oldstate,records:newRec};
+
+                
+            // let newRec = [oldstate.records];
+            // let editRecord = newRec[parseInt(action.idx)]
+            // editRecord[action.fieldname] = action.value 
+
+            // newRec[parseInt(action.idx)] = editRecord;
+            // return {...oldstate,records:newRec};
+
             let editRecord = oldstate.records[parseInt(action.idx)]
-            editRecord[action.fieldname] = action.value 
-            oldstate.records.splice(parseInt(action.idx),1,editRecord)
-            debugger
-            return oldstate;
+            editRecord[action.fieldname] = action.value
+            Object.assign(oldstate.records[parseInt(action.idx)],editRecord) 
+            return {...oldstate,records:oldstate.records}
 
 //Default Action
         default:
