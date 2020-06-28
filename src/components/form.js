@@ -1,6 +1,7 @@
 import React from 'react';
 import '../Styling.css'
-import DetailedForm from './detailedform.js';
+import DetailedForm from './olddetailedform';
+// import DetailedForm from '../olddetailedform1.js';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 

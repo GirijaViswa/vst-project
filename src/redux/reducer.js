@@ -38,10 +38,15 @@ const reducer = (oldstate, action) => {
             // newRec[parseInt(action.idx)] = editRecord;
             // return {...oldstate,records:newRec};
 
-            let editRecord = oldstate.records[parseInt(action.idx)]
-            editRecord[action.fieldname] = action.value
-            Object.assign(oldstate.records[parseInt(action.idx)],editRecord) 
-            return {...oldstate,records:oldstate.records}
+            let newRecs = oldstate.records.map((rec,id) => {
+                if(id === parseInt(action.idx)){
+                    // debugger
+                    rec[action.fieldname] = action.value 
+                }
+                return rec
+            })
+            // debugger
+            return {...oldstate,records:newRecs}
 
 //Default Action
         default:
