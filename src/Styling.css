@@ -4,15 +4,12 @@
     padding: 2%;
     text-align: left;
     background-color: #2F4454;
-    /* background-color: #457675; */
-    /* background-color: rgba(0, 0, 0, 0.701); */
     color: cornsilk;
     height: 100%;
 }
 .FormFields{
     display: inline ;
     text-align: left;
-    /* display: grid; */
 }
 button, .ButtonClass{
   background-color: orangered;  
@@ -80,7 +77,6 @@ th,td{
     font-size: 20px;
 }
 td{
-    /* width: auto; */
     color: white;
     text-align: left;
     word-break: break-all;
@@ -97,5 +93,4 @@ fieldset > *{
     color: cornsilk;
     font-weight: bold ;
     font-family: 'Open Sans', sans-serif;
-
 }

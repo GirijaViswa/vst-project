@@ -1,8 +1,5 @@
 import React from 'react';
 import '../Styling.css'
-import DetailedForm from './olddetailedform';
-// import 'bootstrap/dist/css/bootstrap.min.css';
-// import DetailedForm from '../olddetailedform1.js';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
@@ -18,7 +15,6 @@ const customStyles = {
       width: '27%'
     }),
     control: () => ({
-      // none of react-select's styles are passed to <Control />
       backgroundColor: 'white',
       borderRadius: '5px',
       width: '27%',
@@ -38,15 +34,12 @@ const validEmailRegex = RegExp(
 
 const validateForm = errors => {
     let valid = true;
-    // debugger
     Object.values(errors).forEach(val => val.length > 0 && (valid = false));
-    // debugger
     return valid;
   };
 
 class Form extends React.Component{
 //Holding the state
-    // state = {count:0,
     state = {
             errors:{"email":'',"password":'',"zipcode":'',"firstname":''},
             edit:false,
@@ -71,7 +64,6 @@ class Form extends React.Component{
 // To record the changes made on each field in the form
     handleChange = (e) => {
         e.preventDefault();
-        // debugger
         let name = e.target.name
         let val = e.target.value
         let errors = this.state.errors
@@ -109,7 +101,6 @@ class Form extends React.Component{
     }
 
     handleCountry = (option) => {
-        // debugger
         this.setState((prevState) => {return {...prevState, "country":option["value"]}})
     }
 
@@ -125,11 +116,9 @@ class Form extends React.Component{
 // To handle submit 
     handleSubmit = (event) => {
         event.preventDefault();
-        // debugger
         console.log(validateForm(this.state.errors))
         if(validateForm(this.state.errors)) {
             console.info('Valid Form')
-            // debugger
             let newEntry = {"firstname" : this.state.firstname, "lastname":this.state.lastname, "username":this.state.username, "email":this.state.email,
                         "password":this.state.password, "address1" : this.state.address1, "city":this.state.city,"state":this.state.state, "country" : this.state.country, "zipcode":this.state.zipcode}
             
@@ -141,14 +130,9 @@ class Form extends React.Component{
             alert("For successful registration,please fill in as instructed!")
             console.error('Invalid Form')
           }
-        // let newEntry = {"firstname" : this.state.firstname, "lastname":this.state.lastname, "username":this.state.username, "email":this.state.email,
-        //                 "password":this.state.password, "address1" : this.state.address1, "city":this.state.city,"state":this.state.state, "country" : this.state.country, "zipcode":this.state.zipcode}
-        // this.setState((prevState) => {return {count:prevState.count+1,errors:{"email":'',"password":'',"zipcode":'',"firstname":''},firstname:'',lastname:'',username:'',email:'',password:'',address1:'',city:'',state:'',country:'',zipcode:''}})
-        // this.props.addRecord(newEntry);
     }
 
     handleClick = (event, idx) =>{
-        debugger
         console.log(':A row was clicked!', event.target.parentElement.id, idx)
         this.props.detailedRecord(idx)
     }
@@ -157,17 +141,13 @@ class Form extends React.Component{
         const {errors} = this.state;
         return(
         <div className="FormClass">
-             {/* {this.props.recordId ? <DetailedForm />  */}
-             {/* {this.props.recordId ? <DetailedForm /> */}
-             {/* : */}
+
             <div className="UserRegistration">
             <h1>User Registration Form</h1>
 {/* Form creation */}
             <form className="FormFields" onSubmit={this.handleSubmit}>
-                {/* <div className="FieldsList"> */}
                 <label>
                     First Name<br/>
-                    {/* <input type="text" name="firstname" value={this.state.firstname} onChange={(event)=>this.handleChange(event)} placeholder="Enter your firstname"/> */}
                     <input type="text" name="firstname" value={this.state.firstname}  onChange={(event)=>this.handleChange(event)} placeholder="Enter your firstname" required />
                     {errors.firstname.length >= 0 && 
                         <div className='error'>{errors.firstname}</div>}
@@ -216,7 +196,6 @@ class Form extends React.Component{
                 </label><br/> <br/> 
                 <input className="ButtonClass" type="Submit" value="Submit" />
                 <button onClick={this.handleReset} >Reset</button>
-            {/* </div> */}
             </form><br/> <br/><br/> <br/>
             
 {/* Display the records */}
@@ -237,8 +216,6 @@ class Form extends React.Component{
                     <tbody>
                 
                     {this.props.records.map((record, idx) => (
-                        // <Link to ={{pathname:`/form/${idx}`,state:{"onchange":this.handleChange,"validate":validateForm}}} >
-                        //  <Link to ={`/form/${idx}`} >
                             <tr id={idx} onClick={(event)=>this.handleClick(event, idx)}>
                                 <td>{idx+1}</td>
                                 <td>{record["firstname"]}</td>
@@ -248,14 +225,12 @@ class Form extends React.Component{
                                 <td>{record["country"]}</td>
                                 <td onClick={(event)=>this.handleClick(event, idx)}><Link to ={`/form/${idx}`} >View</Link></td>
                             </tr>
-                        //  </Link>
                     ))}
                     </tbody>
                 </table>
             : null}
             </div>
     </div>
-     {/* } */}
         </div>  
     )
         
