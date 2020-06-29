@@ -1,7 +1,7 @@
 import React from 'react';
-import Form from './Components/Form.js';
+import Form from './components/Form.js';
 import {BrowserRouter,Route,Switch} from 'react-router-dom';
-import DetailedForm from './Components/DetailedForm.js';
+import DetailedForm from './components/DetailedForm.js';
 // import DetailedForm from './components/olddetailedform';
 // import './App.css';
 
