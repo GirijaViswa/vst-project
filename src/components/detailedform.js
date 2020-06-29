@@ -40,6 +40,7 @@ const  DetailedForm = (props) => {
         <div className="DetailedClass">
             <form className="FormFields">
             <h1>Detailed Information</h1>
+            {present.firstname && <div><Link to="/">Home</Link></div> }
                 {editable ?
 // Editable fieldset
                     <fieldset>

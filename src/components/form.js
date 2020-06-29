@@ -119,9 +119,12 @@ class Form extends React.Component{
 // To handle submit 
     handleSubmit = (event) => {
         event.preventDefault();
-        console.log(validateForm(this.state.errors))
+        if(this.state.country === ''){
+            alert("Select the country")
+            return null;
+        }
+        // if(this.state.country === ''){ this.state["country"] = "United States" }
         if(validateForm(this.state.errors)) {
-            console.info('Valid Form')
             let newEntry = {"firstname" : this.state.firstname, "lastname":this.state.lastname, "username":this.state.username, "email":this.state.email,
                         "password":this.state.password, "address1" : this.state.address1, "city":this.state.city,"state":this.state.state, "country" : this.state.country, "zipcode":this.state.zipcode}
             
@@ -199,7 +202,7 @@ class Form extends React.Component{
                     {errors.zipcode.length >= 0 && 
                         <div className='error'>{errors.zipcode}</div>}
                 </label><br/> <br/> </fieldset>
-                <input className="ButtonClass" type="Submit" value="Submit" />
+                <input className="ButtonClass" type="Submit" value="Submit"  />
                 <button onClick={this.handleReset} >Reset</button>
             </form><br/> <br/><br/> <br/>
             
