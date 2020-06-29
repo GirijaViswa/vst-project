@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 .FormClass,.DetailedClass{
     padding: 2%;
+    padding-left: 8%;
     text-align: left;
     background-color: #2F4454;
     color: cornsilk;
@@ -55,7 +56,7 @@ th{
     text-align: left;
     padding: 1.5%;
 }
-a{
+.ViewButton{
     width: 100%;
     color: cornsilk;
     padding: 1%;

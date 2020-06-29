@@ -228,7 +228,7 @@ class Form extends React.Component{
                                 <td>{record["username"]}</td>
                                 <td>{record["email"]}</td>
                                 <td>{record["country"]}</td>
-                                <td onClick={(event)=>this.handleClick(event, idx)}><Link to ={`/form/${idx}`} >View</Link></td>
+                                <td onClick={(event)=>this.handleClick(event, idx)}><Link className="ViewButton" to ={`/form/${idx}`} >View</Link></td>
                             </tr>
                     ))}
                     </tbody>
