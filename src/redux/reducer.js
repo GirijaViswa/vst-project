@@ -1,6 +1,4 @@
 const reducer = (oldstate, action) => {
-    // console.log("oldstate",oldstate)
-    // console.log("action",action)
 
     switch (action.type){
 

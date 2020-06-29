@@ -1,6 +1,6 @@
 /* for labels */
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
-.FormClass{
+.FormClass,.DetailedClass{
     padding: 2%;
     text-align: center;
     background-color: #2F4454;
@@ -48,7 +48,7 @@ table{
     border-collapse: collapse;
     table-layout: fixed;
 }
-th{
+th,Link>th{
     background-color: #388687;
     color: white;
     font-size: 15px;
@@ -56,14 +56,27 @@ th{
     text-align: left;
     padding: 1.5%;
 }
-th,td{  
+th, td,Link>th,Link>td{  
     border: 1px solid;  
     padding: 2%;
     font-size: 20px;
 }
-td{
+td,Link>td{
     width: auto;
     color: white;
     text-align: left;
     word-break: break-all;
+}
+fieldset{
+    color: cornsilk;
+    padding: 2%;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20px;
+    font-weight: bold ;
+}
+fieldset > *{
+    color: cornsilk;
+    font-weight: bold ;
+    font-family: 'Open Sans', sans-serif;
+
 }

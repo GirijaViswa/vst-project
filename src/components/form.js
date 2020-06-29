@@ -68,7 +68,11 @@ class Form extends React.Component{
 
 // To reset all fields in the form
     handleReset = () => {
-        this.setState({})
+        this.setState({
+            errors:{"email":'',"password":'',"zipcode":'',"firstname":''},
+            edit:false,
+            firstname:'',lastname:'',username:'',email:'',password:'',address1:'',
+            city:'',state:'',country:'',zipcode:''})
     }
 
 // To handle submit 
@@ -115,7 +119,7 @@ class Form extends React.Component{
                 <label>
                     First Name<br/>
                     {/* <input type="text" name="firstname" value={this.state.firstname} onChange={(event)=>this.handleChange(event)} placeholder="Enter your firstname"/> */}
-                    <input type="text" name="firstname" value={this.state.firstname}  onChange={(event)=>this.handleChange(event)} placeholder="Enter your firstname" />
+                    <input type="text" name="firstname" value={this.state.firstname}  onChange={(event)=>this.handleChange(event)} placeholder="Enter your firstname" required />
                     {errors.firstname.length >= 0 && 
                         <div className='error'>{errors.firstname}</div>}
                 </label><br/><br/> 
@@ -129,13 +133,13 @@ class Form extends React.Component{
                 </label><br/><br/> 
                 <label>
                     Email Address<br/>
-                    <input type="text" name="email" value={this.state.email} onChange={(event)=>this.handleChange(event)} placeholder="Enter your email address" />
+                    <input type="text" name="email" value={this.state.email} onChange={(event)=>this.handleChange(event)} placeholder="Enter your email address" required />
                     {errors.email.length >= 0 && 
                         <div className='error'>{errors.email}</div>}
                 </label><br/><br/> 
                 <label>
                     Password<br/>
-                    <input type="password" name="password" value={this.state.password} onChange={(event)=>this.handleChange(event)} placeholder="Enter password"/>
+                    <input type="password" name="password" value={this.state.password} onChange={(event)=>this.handleChange(event)} placeholder="Enter password" required/>
                     {errors.password.length >= 0 && 
                         <div className='error'>{errors.password}</div>}
                 </label><br/><br/> 
@@ -157,13 +161,13 @@ class Form extends React.Component{
                 </label><br/><br/> 
                 <label>
                     Zipcode<br/>    
-                    <input type="text" name="zipcode" value={this.state.zipcode} onChange={(event)=>this.handleChange(event)} placeholder="Enter your zipcode"/>
+                    <input type="text" name="zipcode" value={this.state.zipcode} onChange={(event)=>this.handleChange(event)} placeholder="Enter your zipcode" required/>
                     {errors.zipcode.length >= 0 && 
                         <div className='error'>{errors.zipcode}</div>}
                 </label><br/> <br/> 
                 <input className="ButtonClass" type="Submit" value="Submit" />
                 <button onClick={this.handleReset} >Reset</button>
-            </form>
+            </form><br/> <br/><br/> <br/>
             
 {/* Display the records */}
             <div className="DisplayRecords">

@@ -10,7 +10,7 @@ const validateForm = errors => {
     return valid;
   };
 
-const   DetailedForm = (props) => {
+const  DetailedForm = (props) => {
 
     const [editable,setEditable] = useState(false)
     const [errors,setErrors] = useState({"email":'',"password":'',"zipcode":'',"firstname":''})
@@ -74,13 +74,14 @@ const   DetailedForm = (props) => {
 }
 
     return(
-        <div>Shiva shiva
+        <div className="DetailedClass">Shiva shiva
             {props.recordId}
             {/* <a onClick={() => setEditable(!editable)}> read more</a> */}
             {props.records.map(ele=>ele.firstname)}
             {/* {(props.records[parseInt(props.recordId)].firstname) && <Link to="/">Goto Home</Link>} */}
 
             <form className="FormFields">
+            <h1>Detailed Information</h1>
                 {editable ?
 // Editable fieldset
                     <fieldset>
@@ -160,7 +161,7 @@ const   DetailedForm = (props) => {
                         <label>
                             First Name<br/>
                             <input type="text" name="firstname" value={props.records[parseInt(props.recordId)].firstname} />                    
-                        </label><br/>
+                        </label><br/><br/>
                         <label>
                             Last Name<br/>
                             <input type="text" name="lastname" value={props.records[parseInt(props.recordId)].lastname} />
@@ -205,11 +206,11 @@ const   DetailedForm = (props) => {
             </form>
 
             {editable ?
-            <div>
+            <span>
                 {/* <button onClick={()=>setEditable(!editable)}>To View</button> */}
                 <button onClick={(event)=>handleCancel(event)}>Cancel</button>
                 <button onClick={(event) => handleSubmit(event)}>Save the changes</button>
-            </div>
+            </span>
                 :
                 // <button onClick={()=>setEditable(!editable)}>To Edit</button>
                 <button onClick={editRec}>To Edit</button>
