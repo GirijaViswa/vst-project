@@ -31,17 +31,13 @@ const  DetailedForm = (props) => {
 
     const handleChange = (event) => {
         event.preventDefault();
-
     if(props.records[parseInt(props.recordId)][event.target.name] !== event.target.value){
         setPresent(props.present[event.target.name] = event.target.value)
     }
 }
 
     return(
-        <div className="DetailedClass">Shiva shiva
-            {props.recordId}
-            {props.records.map(ele=>ele.firstname)}
-
+        <div className="DetailedClass">
             <form className="FormFields">
             <h1>Detailed Information</h1>
                 {editable ?
@@ -148,7 +144,7 @@ const  DetailedForm = (props) => {
                 :
                 <button onClick={editRec}>To Edit</button>
             }
-            <Link to="/"><button onClick={handleBack}>Goto Home</button></Link>
+            <Link to="/"><button className="ButtonClass" onClick={handleBack}>Goto Home</button></Link>
             
             
 
@@ -163,9 +159,7 @@ const mapStatetoProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-    updateRecord:(rec,index)=>dispatch({type:"UPDATE_RECORD","record":rec,"idx":index}),
-    cancelRecord:(index)=>dispatch({type:"CANCEL_RECORD","idx":index}),
-    resetActiveRec : ()=>dispatch({type:"RESET_ACTIVE_REC"})}
+    updateRecord:(rec,index)=>dispatch({type:"UPDATE_RECORD","record":rec,"idx":index})}
 }
 
 export default connect(mapStatetoProps,mapDispatchToProps)(DetailedForm);

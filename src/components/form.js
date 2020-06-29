@@ -5,8 +5,7 @@ import {Link} from 'react-router-dom';
 import axios from 'axios';
 import Select from 'react-select';
 
-
-
+//Custom styles for react-select tag
 const customStyles = {
     option: (provided, state) => ({
       ...provided,
@@ -14,6 +13,7 @@ const customStyles = {
       color: state.isSelected ? 'black' : 'grey',
       width: '27%'
     }),
+
     control: () => ({
       backgroundColor: 'white',
       borderRadius: '5px',
@@ -28,10 +28,13 @@ const customStyles = {
     }
   }
 
+//Regex email validation
 const validEmailRegex = RegExp(
-    /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+    // /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+    /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i
   );
 
+//Check for validations
 const validateForm = errors => {
     let valid = true;
     Object.values(errors).forEach(val => val.length > 0 && (valid = false));
@@ -133,7 +136,6 @@ class Form extends React.Component{
     }
 
     handleClick = (event, idx) =>{
-        console.log(':A row was clicked!', event.target.parentElement.id, idx)
         this.props.detailedRecord(idx)
     }
 
@@ -146,6 +148,7 @@ class Form extends React.Component{
             <h1>User Registration Form</h1>
 {/* Form creation */}
             <form className="FormFields" onSubmit={this.handleSubmit}>
+                <fieldset><legend>Personal Details</legend>
                 <label>
                     First Name<br/>
                     <input type="text" name="firstname" value={this.state.firstname}  onChange={(event)=>this.handleChange(event)} placeholder="Enter your firstname" required />
@@ -172,6 +175,8 @@ class Form extends React.Component{
                     {errors.password.length >= 0 && 
                         <div className='error'>{errors.password}</div>}
                 </label><br/>
+                </fieldset><br/><br/>
+                <fieldset><legend>Mailing Details</legend>
                 <label>
                     Address<br/>
                     <input type="text" name="address1" value={this.state.address1} onChange={(event)=>this.handleChange(event)} placeholder="Enter your address" required />
@@ -186,14 +191,14 @@ class Form extends React.Component{
                 </label><br/><br/> 
                 <label>
                     Country<br/>
-                    <Select options = {this.state.countriesList} styles={customStyles} onChange={(event)=>this.handleCountry(event)} />
+                    <Select options = {this.state.countriesList} styles={customStyles} onChange={(event)=>this.handleCountry(event)} defaultValue={{label:"United States",value:"United States"}} required/>
                 </label><br/>
                 <label>
                     Zipcode<br/>    
                     <input type="text" name="zipcode" value={this.state.zipcode} onChange={(event)=>this.handleChange(event)} placeholder="Enter your zipcode" required/>
                     {errors.zipcode.length >= 0 && 
                         <div className='error'>{errors.zipcode}</div>}
-                </label><br/> <br/> 
+                </label><br/> <br/> </fieldset>
                 <input className="ButtonClass" type="Submit" value="Submit" />
                 <button onClick={this.handleReset} >Reset</button>
             </form><br/> <br/><br/> <br/>

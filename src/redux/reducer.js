@@ -12,24 +12,6 @@ const reducer = (oldstate, action) => {
             let oldRec = JSON.parse(JSON.stringify(oldstate.records[parseInt(action.recordId)]))
             let editingrec = JSON.parse(JSON.stringify(oldstate.records[parseInt(action.recordId)]))
             return {...oldstate,recordId:action.recordId,oldRecord:oldRec,edit:!oldstate.edit,activeRecord:oldstate.records[parseInt(action.recordId)],edittingrec:editingrec}
-            
-
-//Reset the active record to its initial value
-        case "RESET_ACTIVE_REC":
-            return {...oldstate,recordId:'',edit:!oldstate.edit,errors:{"email":'',"password":'',"zipcode":'',"firstname":''},activeRecord:'',oldRecord:{}}
-
-//Holds the intermediate changes made to the record
-        case "CANCEL_RECORD":
-            let rec = oldstate.oldRecord
-            let recs = oldstate.records.map((rec,id) => {
-                if(id === parseInt(action.idx)){
-                    rec = JSON.parse(JSON.stringify(oldstate.oldRecord))
-                }
-                return rec
-            })
-            let oldRec1 = JSON.parse(JSON.stringify(oldstate.records[parseInt(action.recordId)]))
-            let editingrec1 = JSON.parse(JSON.stringify(oldstate.records[parseInt(action.recordId)]))
-            return {...oldstate,records:recs,activeRecord:rec,oldRecord:oldRec1,edittingrec:editingrec1}
 
 //Update a record
         case "UPDATE_RECORD":
