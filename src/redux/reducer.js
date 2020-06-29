@@ -9,6 +9,7 @@ const reducer = (oldstate, action) => {
 
 //Set the active record            
         case "ACTIVE_REC":
+            debugger
             let oldRec = JSON.parse(JSON.stringify(oldstate.records[parseInt(action.recordId)]))
             let editingrec = JSON.parse(JSON.stringify(oldstate.records[parseInt(action.recordId)]))
             return {...oldstate,recordId:action.recordId,oldRecord:oldRec,edit:!oldstate.edit,activeRecord:oldstate.records[parseInt(action.recordId)],edittingrec:editingrec}

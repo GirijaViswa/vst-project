@@ -13,7 +13,7 @@ const validateForm = errors => {
 const  DetailedForm = (props) => {
 
     const [editable,setEditable] = useState(false)
-    const [errors,setErrors] = useState({"email":'',"password":'',"zipcode":'',"firstname":''})
+    // const [errors,setErrors] = useState({"email":'',"password":'',"zipcode":'',"firstname":''})
     const [present,setPresent] = useState({})
     // setRecord(props.record)
     // const enableStyle = {editable ? {color:blue}:{color:red}}
@@ -46,12 +46,13 @@ const  DetailedForm = (props) => {
     const handleSubmit = (event) => {
         alert("Change(s) are saved successfully.")
         // debugger
-        if (validateForm(errors)){
-            // if (props.record[event.target.name] !== event.target.value){
-            //     props.updateRecord(event.target.name,event.target.value,props.recordId)
-            // }
-            props.updateRecord(props.present,props.recordId)
-        }
+        // if (validateForm(errors)){
+        //     // if (props.record[event.target.name] !== event.target.value){
+        //     //     props.updateRecord(event.target.name,event.target.value,props.recordId)
+        //     // }
+        //     props.updateRecord(props.present,props.recordId)
+        // }
+        props.updateRecord(props.present,props.recordId)
         setEditable(!editable)
     }
 
@@ -93,8 +94,7 @@ const  DetailedForm = (props) => {
                             
                             <input type="text" name="firstname" value={present.firstname} onChange={(event)=>handleChange(event)} placeholder="Enter your firstname"/>                    
                             {/* <input type="text" name="firstname" value={props.present.firstname} onChange={(event)=>handleChange(event)} placeholder="Enter your firstname"/>                     */}
-                            {errors.firstname.length >= 0 && 
-                            <div className='error'>{errors.firstname}</div>}
+                            
                         </label><br/>
 
 
@@ -146,7 +146,7 @@ const  DetailedForm = (props) => {
                             Country<br/>
                             {/* <input type="text" name="country" value={props.record.country} onChange={(event)=>handleChange(event)} placeholder="Enter your Country"/> */}
                             {/* <input type="text" name="country" value={props.records[parseInt(props.recordId)].country} onChange={(event)=>handleChange(event)} placeholder="Enter your Country"/> */}
-                            <input type="text" name="country" value={present.country} onChange={(event)=>handleChange(event)} placeholder="Enter your Country"/>
+                            <input type="text" name="country" value={present.country} onChange={(event)=>handleChange(event)} disabled/>
                         </label><br/><br/> 
                         <label>
                             Zipcode<br/>    

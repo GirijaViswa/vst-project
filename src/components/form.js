@@ -148,9 +148,9 @@ class Form extends React.Component{
     }
 
     handleClick = (event, idx) =>{
-        // debugger
+        debugger
         console.log(':A row was clicked!', event.target.parentElement.id, idx)
-        this.props.detailedRecord(event.target.parentElement.id)
+        this.props.detailedRecord(idx)
     }
 
     render(){
