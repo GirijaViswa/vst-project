@@ -2,8 +2,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 .FormClass,.DetailedClass{
     padding: 2%;
-    text-align: center;
+    text-align: left;
     background-color: #2F4454;
+    /* background-color: #457675; */
     /* background-color: rgba(0, 0, 0, 0.701); */
     color: cornsilk;
     height: 100%;
@@ -11,6 +12,7 @@
 .FormFields{
     display: inline ;
     text-align: left;
+    /* display: grid; */
 }
 button, .ButtonClass{
   background-color: orangered;  
@@ -30,7 +32,7 @@ label{
     margin: 1% 0;
     text-align: left;
 }
-input[type=text],select,input[type=password]{
+input[type=text],input[type=password]{
     width: 25%;
     font-family: 'Open Sans', sans-serif;
     font-size: 15px;
@@ -41,14 +43,14 @@ input[type=text],select,input[type=password]{
 }
 .error{
     color: coral;
-    text-align: center;
+    text-align: left;
 }
 table{
     width: 95%;
     border-collapse: collapse;
     table-layout: fixed;
 }
-th,Link>th{
+th{
     background-color: #388687;
     color: white;
     font-size: 15px;
@@ -56,13 +58,29 @@ th,Link>th{
     text-align: left;
     padding: 1.5%;
 }
-th, td,Link>th,Link>td{  
+a{
+    width: 100%;
+    color: cornsilk;
+    padding: 1%;
+    text-decoration: none;
+    background-color:orangered;
+    border-radius: 5px;
+
+}
+tr{
+    color: white;
+    font-size: 15px;
+    font-weight: bolder;
+    text-align: left;
+    padding: 1.5%;
+}
+th,td{  
     border: 1px solid;  
     padding: 2%;
     font-size: 20px;
 }
-td,Link>td{
-    width: auto;
+td{
+    /* width: auto; */
     color: white;
     text-align: left;
     word-break: break-all;

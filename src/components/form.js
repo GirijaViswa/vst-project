@@ -1,9 +1,36 @@
 import React from 'react';
 import '../Styling.css'
 import DetailedForm from './olddetailedform';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 // import DetailedForm from '../olddetailedform1.js';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
+import axios from 'axios';
+import Select from 'react-select';
+
+
+
+const customStyles = {
+    option: (provided, state) => ({
+      ...provided,
+      backgroundColor: 'white',
+      color: state.isSelected ? 'black' : 'grey',
+      width: '27%'
+    }),
+    control: () => ({
+      // none of react-select's styles are passed to <Control />
+      backgroundColor: 'white',
+      borderRadius: '5px',
+      width: '27%',
+      placeholder: 'Select country'
+    }),
+    singleValue: (provided, state) => {
+      const opacity = state.isDisabled ? 0.5 : 1;
+      const transition = 'opacity 300ms';
+  
+      return { ...provided, opacity, transition };
+    }
+  }
 
 const validEmailRegex = RegExp(
     /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
@@ -23,8 +50,23 @@ class Form extends React.Component{
     state = {
             errors:{"email":'',"password":'',"zipcode":'',"firstname":''},
             edit:false,
+            countriesList:[],
             firstname:'',lastname:'',username:'',email:'',password:'',address1:'',
             city:'',state:'',country:'',zipcode:''}
+        
+    componentDidMount(){
+        axios.get(`https://restcountries.eu/rest/v2/all?fields=name`)
+        .then(res => {
+            let arr = res.data
+            let list = [];
+            console.log(arr)
+
+            arr.forEach(element => {
+                 list.push({"value":element.name,"name":"country","label":element.name})
+            })
+            this.setState({countriesList : list})
+        })
+    }
 
 // To record the changes made on each field in the form
     handleChange = (e) => {
@@ -66,6 +108,11 @@ class Form extends React.Component{
         this.setState((prevState) => {return {...prevState, [name]:val}})
     }
 
+    handleCountry = (option) => {
+        // debugger
+        this.setState((prevState) => {return {...prevState, "country":option["value"]}})
+    }
+
 // To reset all fields in the form
     handleReset = () => {
         this.setState({
@@ -100,8 +147,9 @@ class Form extends React.Component{
         // this.props.addRecord(newEntry);
     }
 
-    handleClick = (event) =>{
+    handleClick = (event, idx) =>{
         // debugger
+        console.log(':A row was clicked!', event.target.parentElement.id, idx)
         this.props.detailedRecord(event.target.parentElement.id)
     }
 
@@ -116,13 +164,14 @@ class Form extends React.Component{
             <h1>User Registration Form</h1>
 {/* Form creation */}
             <form className="FormFields" onSubmit={this.handleSubmit}>
+                {/* <div className="FieldsList"> */}
                 <label>
                     First Name<br/>
                     {/* <input type="text" name="firstname" value={this.state.firstname} onChange={(event)=>this.handleChange(event)} placeholder="Enter your firstname"/> */}
                     <input type="text" name="firstname" value={this.state.firstname}  onChange={(event)=>this.handleChange(event)} placeholder="Enter your firstname" required />
                     {errors.firstname.length >= 0 && 
                         <div className='error'>{errors.firstname}</div>}
-                </label><br/><br/> 
+                </label><br/>
                 <label>
                     Last Name<br/>
                     <input type="text" name="lastname" value={this.state.lastname} onChange={(event)=>this.handleChange(event)} placeholder="Enter your lastname" required />
@@ -136,13 +185,13 @@ class Form extends React.Component{
                     <input type="text" name="email" value={this.state.email} onChange={(event)=>this.handleChange(event)} placeholder="Enter your email address" required />
                     {errors.email.length >= 0 && 
                         <div className='error'>{errors.email}</div>}
-                </label><br/><br/> 
+                </label><br/> 
                 <label>
                     Password<br/>
                     <input type="password" name="password" value={this.state.password} onChange={(event)=>this.handleChange(event)} placeholder="Enter password" required/>
                     {errors.password.length >= 0 && 
                         <div className='error'>{errors.password}</div>}
-                </label><br/><br/> 
+                </label><br/>
                 <label>
                     Address<br/>
                     <input type="text" name="address1" value={this.state.address1} onChange={(event)=>this.handleChange(event)} placeholder="Enter your address" required />
@@ -157,8 +206,8 @@ class Form extends React.Component{
                 </label><br/><br/> 
                 <label>
                     Country<br/>
-                    <input type="text" name="country" value={this.state.country} onChange={(event)=>this.handleChange(event)} placeholder="Enter your Country" required />
-                </label><br/><br/> 
+                    <Select options = {this.state.countriesList} styles={customStyles} onChange={(event)=>this.handleCountry(event)} />
+                </label><br/>
                 <label>
                     Zipcode<br/>    
                     <input type="text" name="zipcode" value={this.state.zipcode} onChange={(event)=>this.handleChange(event)} placeholder="Enter your zipcode" required/>
@@ -167,34 +216,41 @@ class Form extends React.Component{
                 </label><br/> <br/> 
                 <input className="ButtonClass" type="Submit" value="Submit" />
                 <button onClick={this.handleReset} >Reset</button>
+            {/* </div> */}
             </form><br/> <br/><br/> <br/>
             
 {/* Display the records */}
             <div className="DisplayRecords">
                 {this.props.records.length > 0 ? 
                 <table>
-                    <tr>
-                        <th>Index</th>
-                        <th>Firstname</th>
-                        <th>Lastname</th>
-                        <th>Username</th>
-                        <th>Email address</th>
-                        <th>Country</th>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th>Index</th>
+                            <th>Firstname</th>
+                            <th>Lastname</th>
+                            <th>Username</th>
+                            <th>Email address</th>
+                            <th>Country</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                 
-                    {this.props.records.map((record,idx) => (
+                    {this.props.records.map((record, idx) => (
                         // <Link to ={{pathname:`/form/${idx}`,state:{"onchange":this.handleChange,"validate":validateForm}}} >
-                         <Link to ={`/form/${idx}`} >
-                            <tr id={idx} onClick={(event)=>this.handleClick(event)}>
+                        //  <Link to ={`/form/${idx}`} >
+                            <tr id={idx} onClick={(event)=>this.handleClick(event, idx)}>
                                 <td>{idx+1}</td>
                                 <td>{record["firstname"]}</td>
                                 <td>{record["lastname"]}</td>
                                 <td>{record["username"]}</td>
                                 <td>{record["email"]}</td>
                                 <td>{record["country"]}</td>
+                                <td onClick={(event)=>this.handleClick(event, idx)}><Link to ={`/form/${idx}`} >View</Link></td>
                             </tr>
-                        </Link>
+                        //  </Link>
                     ))}
+                    </tbody>
                 </table>
             : null}
             </div>
